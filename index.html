@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizanya</title>
+    <meta name="description" content="Mizanya turns the SMS your bank already sends you into a daily spending number, privately on your iPhone.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Naskh Arabic', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+
+        /* Header */
+        .header { text-align: center; margin-bottom: 56px; }
+        .header .mark {
+            width: 128px; height: 128px; border-radius: 28px; margin: 0 auto 20px;
+            background: linear-gradient(145deg, #14b8a6, #0f766e);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 64px; font-weight: 700; color: #fff;
+            box-shadow: 0 8px 32px rgba(45, 212, 191, 0.18);
+        }
+        .header img { width: 128px; height: 128px; border-radius: 28px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(45, 212, 191, 0.18); }
+        .header h1 { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .header .subtitle { font-size: 1.15rem; color: #888; margin-bottom: 12px; }
+        .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .badge-ios { background: #1a2e1a; color: #22c55e; }
+        .badge-lang { background: #102a28; color: #2dd4bf; }
+        .badge-private { background: #2e2a1a; color: #eab308; }
+
+        /* Navigation */
+        .nav { display: flex; gap: 6px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
+        .nav a { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; transition: all 0.2s; }
+        .nav a:hover { color: #fff; background: #1a1a1a; }
+
+        /* Sections */
+        .section { margin-bottom: 44px; }
+        .section h2 {
+            font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 16px; padding-bottom: 8px;
+            border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 8px;
+        }
+        .section h3 { font-size: 1rem; color: #ddd; margin: 18px 0 6px; }
+        .section p, .section li { color: #999; margin-bottom: 10px; }
+        .section ul, .section ol { padding-inline-start: 22px; }
+        strong { color: #ddd; }
+
+        /* Feature grid */
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
+        .feature-card { background: #111; border: 1px solid #1a1a1a; border-radius: 12px; padding: 16px; }
+        .feature-card h3 { font-size: 0.9rem; font-weight: 600; color: #ddd; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
+        .feature-card p { font-size: 0.85rem; color: #777; margin: 0; }
+
+        /* Steps */
+        .steps { counter-reset: step; list-style: none; padding: 0 !important; }
+        .steps li { counter-increment: step; position: relative; padding: 12px 16px 12px 56px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; margin-bottom: 10px; font-size: 0.9rem; }
+        .steps li::before { content: counter(step); position: absolute; left: 16px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: #0f766e; color: #fff; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
+
+        /* FAQ */
+        .faq-item { margin-bottom: 18px; padding: 14px 16px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; }
+        .faq-item strong { color: #ddd; display: block; margin-bottom: 4px; font-size: 0.9rem; }
+        .faq-item p { font-size: 0.85rem; color: #777; margin: 0; }
+
+        a { color: #2dd4bf; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .tech-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .tech-tag { background: #1a1a1a; color: #888; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
+
+        /* Privacy */
+        .privacy-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0 8px; }
+        @media (max-width: 500px) { .privacy-grid { grid-template-columns: 1fr; } }
+        .privacy-card { text-align: center; padding: 14px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; }
+        .privacy-card .check { font-size: 1.3rem; margin-bottom: 4px; }
+        .privacy-card p { font-size: 0.8rem; color: #777; margin: 0; }
+        .policy { background: #0e0e0e; border: 1px solid #1a1a1a; border-radius: 12px; padding: 18px 20px; margin-top: 14px; }
+        .policy p, .policy li { font-size: 0.88rem; }
+        .policy .date { font-size: 0.8rem; color: #666; }
+        .rtl { direction: rtl; text-align: right; font-family: -apple-system, 'SF Arabic', 'Geeza Pro', 'Noto Naskh Arabic', sans-serif; }
+
+        .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid #1a1a1a; color: #444; font-size: 0.8rem; }
+        .footer p { margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="mark" aria-hidden="true">م</div>
+            <h1>Mizanya</h1>
+            <p class="subtitle">Your bank SMS, turned into a daily spending number</p>
+            <div class="badges">
+                <span class="badge badge-ios">iOS 17+</span>
+                <span class="badge badge-lang">English · العربية</span>
+                <span class="badge badge-private">On-device only</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#setup">Setup</a>
+            <a href="#banks">Banks</a>
+            <a href="#faq">FAQ</a>
+            <a href="#privacy">Privacy</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- About -->
+        <div class="section" id="about">
+            <h2><span class="icon">&#128218;</span> About</h2>
+            <p>Mizanya is a personal spending tracker for Bahrain. Your bank already texts you for every card payment and transfer; Mizanya reads those messages, works out what each payment was, and tells you every day how much you can still spend until payday.</p>
+            <p>There is no account and no bank login. Everything is processed and stored on your iPhone.</p>
+        </div>
+
+        <!-- Features -->
+        <div class="section" id="features">
+            <h2><span class="icon">&#9889;</span> Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>&#128172; Automatic capture</h3>
+                    <p>Bank SMS arrive in Mizanya by themselves through a one-time Shortcuts automation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#127919; Daily allowance</h3>
+                    <p>One number each day: what you can spend and still hit your monthly target.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#127991; Smart categories</h3>
+                    <p>200+ Bahraini merchants recognised automatically. Every correction becomes a rule.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#128202; Monthly report</h3>
+                    <p>Donut chart, tap any category for every payment, and where you overspent and why.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#129309; Friends paying back</h3>
+                    <p>Fawri+ repayments after a shared bill are matched, so you see only your share.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#128260; Own transfers & refunds</h3>
+                    <p>Moving money between your own accounts and refunds never count as spending.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#128276; Notifications</h3>
+                    <p>Payment logged, “What was this?” with one-tap answers, budget alerts, payday.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>&#127758; Bilingual</h3>
+                    <p>Full English and Arabic support with right-to-left layout, light and dark mode.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setup -->
+        <div class="section" id="setup">
+            <h2><span class="icon">&#128295;</span> Setup</h2>
+            <p>iOS does not let apps read your messages, so Mizanya uses Apple's Shortcuts app. The in-app guide shows every screen; this is the summary.</p>
+            <h3>1. Add the Mizanya shortcut (one tap)</h3>
+            <ol class="steps">
+                <li>In Mizanya, tap <strong>Add the Mizanya shortcut</strong>, read what it does, then tap <strong>Open in Shortcuts</strong>.</li>
+                <li>Tap <strong>Add Shortcut</strong>. It has one step: <em>Log Shortcut Input in Mizanya</em>.</li>
+            </ol>
+            <h3>2. Create one automation per bank</h3>
+            <ol class="steps">
+                <li>Shortcuts &rsaquo; <strong>Automation</strong> &rsaquo; <strong>+</strong> &rsaquo; <strong>Message</strong>.</li>
+                <li><strong>Sender</strong>: your bank, spelled exactly as in Messages (e.g. AlSalamBank, BisB). Leave “Message Contains” empty.</li>
+                <li>On the automation page, tap the row under <strong>Do</strong> and pick <strong>Mizanya SMS</strong> under My Shortcuts.</li>
+                <li>Set <strong>Run Immediately</strong>, then tap <strong>Done</strong>.</li>
+            </ol>
+            <p>Using two banks? Add the shortcut once, then repeat part 2 for each bank.</p>
+        </div>
+
+        <!-- Banks -->
+        <div class="section" id="banks">
+            <h2><span class="icon">&#127974;</span> Supported banks</h2>
+            <p><strong>Al Salam Bank</strong> and <strong>Bahrain Islamic Bank (BisB)</strong>. More Bahraini banks are planned.</p>
+            <p style="font-size: 0.85rem;">Mizanya is an independent app and is not affiliated with, endorsed by or connected to any bank, Benefit or Apple. Bank names are used only to describe which SMS formats are supported.</p>
+        </div>
+
+        <!-- Tech -->
+        <div class="section" id="tech">
+            <h2><span class="icon">&#128736;</span> Built With</h2>
+            <div class="tech-list">
+                <span class="tech-tag">SwiftUI</span>
+                <span class="tech-tag">SwiftData</span>
+                <span class="tech-tag">App Intents</span>
+                <span class="tech-tag">Swift Charts</span>
+                <span class="tech-tag">Shortcuts</span>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section" id="faq">
+            <h2><span class="icon">&#10067;</span> FAQ</h2>
+            <div class="faq-item">
+                <strong>What devices are supported?</strong>
+                <p>iPhone running iOS 17 or later. Newer iOS versions get extra touches such as Liquid Glass on iOS 26.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Can Mizanya read my other messages?</strong>
+                <p>No. Only messages from the bank you choose as Sender in your automation reach Mizanya. One-time password messages are recognised and discarded without being saved.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Does Mizanya connect to my bank?</strong>
+                <p>No. It never asks for bank passwords or card numbers. It only reads the SMS your bank already sends you.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Nothing arrives after a payment. What should I check?</strong>
+                <p>Check the Sender spelling in your automation (one wrong letter stops it), that Do is set to the Mizanya SMS shortcut, and that the automation is set to Run Immediately.</p>
+            </div>
+            <div class="faq-item">
+                <strong>A box asking for “Message” pops up.</strong>
+                <p>The automation's Do is set to the “Log Bank SMS” tile instead of the Mizanya SMS shortcut. Pick the shortcut instead.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Can I try it without setting anything up?</strong>
+                <p>Yes. On the Home screen tap “Try with sample data”. It loads made-up transactions you can remove any time in Settings.</p>
+            </div>
+            <div class="faq-item">
+                <strong>How do I stop it or remove my data?</strong>
+                <p>Delete the automation or the Mizanya SMS shortcut in the Shortcuts app. In Mizanya, Settings &rsaquo; Delete all data removes everything.</p>
+            </div>
+            <div class="faq-item">
+                <strong>How do I report a bug or a message that isn't recognised?</strong>
+                <p>Email us with a short description. If an SMS isn't recognised, include its text with balances and account digits removed.</p>
+            </div>
+        </div>
+
+        <!-- Privacy -->
+        <div class="section" id="privacy">
+            <h2><span class="icon">&#128274;</span> Privacy</h2>
+            <div class="privacy-grid">
+                <div class="privacy-card"><div class="check">&#9989;</div><p>No accounts or sign-in</p></div>
+                <div class="privacy-card"><div class="check">&#9989;</div><p>No data collected</p></div>
+                <div class="privacy-card"><div class="check">&#9989;</div><p>No tracking or analytics</p></div>
+            </div>
+
+            <div class="policy">
+                <h3>Privacy Policy</h3>
+                <p class="date">Last updated: 11 October 2026</p>
+                <p><strong>Everything stays on your iPhone.</strong> Mizanya has no server, no account and no sign-in, and collects no data. Nothing about you or your spending is sent to us or to anyone else. There is no tracking, advertising or analytics.</p>
+                <h3>What Mizanya processes</h3>
+                <p>If you set up the optional automation in Apple's Shortcuts app, the text of SMS messages from the bank senders you choose is passed to Mizanya. Mizanya reads the amount, merchant, date, the last digits of the account and the balance, and saves the transaction on your device only. You can also paste bank messages yourself and add categories and notes.</p>
+                <p>Mizanya does not read any of your other messages; does not ask for or store bank passwords, card numbers, PINs or one-time codes (one-time-password messages are discarded without being saved); does not connect to your bank; and does not send any of this information over the internet.</p>
+                <h3>Where your data is stored</h3>
+                <p>Transactions, categories, rules and settings are stored in Mizanya's private storage on your iPhone. They are included in your device backups (iCloud or computer) according to your own backup settings, which Apple encrypts and controls.</p>
+                <h3>On-device intelligence</h3>
+                <p>On supported iPhones with Apple Intelligence turned on, Mizanya may ask Apple's on-device model to suggest a category for an unknown merchant name. This runs entirely on your iPhone; Mizanya does not send the merchant name to us or to any server.</p>
+                <h3>Notifications</h3>
+                <p>All notifications are created on your iPhone. No notification content passes through any server.</p>
+                <h3>Deleting your data</h3>
+                <p>Settings &rsaquo; Delete all data removes every transaction and rule immediately. Deleting the app removes everything it stored. To stop new messages reaching Mizanya, delete the automation or the Mizanya SMS shortcut in the Shortcuts app.</p>
+                <h3>Children</h3>
+                <p>Mizanya is not directed at children under 13.</p>
+                <h3>Changes</h3>
+                <p>If this policy changes, the new version will be published on this page with a new date.</p>
+                <h3>Contact</h3>
+                <p><a href="mailto:faisalalromaihi7@gmail.com">faisalalromaihi7@gmail.com</a></p>
+            </div>
+
+            <div class="policy rtl" id="privacy-ar" lang="ar">
+                <h3>سياسة الخصوصية</h3>
+                <p class="date">آخر تحديث: 11 أكتوبر 2026</p>
+                <p><strong>كل شيء يبقى على جهازك.</strong> لا يوجد لميزانية خادم ولا حساب ولا تسجيل دخول، ولا يجمع التطبيق أي بيانات. لا يُرسل أي شيء عنك أو عن مصروفك إلينا أو إلى أي جهة. لا تتبّع ولا إعلانات ولا تحليلات.</p>
+                <h3>ما يعالجه التطبيق</h3>
+                <p>إذا أعددت الأتمتة الاختيارية في تطبيق الاختصارات من آبل، يُرسل نص الرسائل الواردة من البنوك التي تختارها فقط إلى ميزانية. يقرأ التطبيق المبلغ والتاجر والتاريخ وآخر أرقام الحساب والرصيد، ويحفظ العملية على جهازك فقط. ويمكنك أيضاً لصق رسائل البنك بنفسك وإضافة الفئات والملاحظات.</p>
+                <p>لا يقرأ التطبيق أي رسائل أخرى؛ ولا يطلب أو يحفظ كلمات مرور البنك أو أرقام البطاقات أو الرمز السري أو رموز التحقق (تُتجاهل رسائل رمز التحقق ولا تُحفظ)؛ ولا يتصل ببنكك؛ ولا يرسل هذه المعلومات عبر الإنترنت.</p>
+                <h3>أين تُحفظ بياناتك</h3>
+                <p>تُحفظ العمليات والفئات والقواعد والإعدادات في مساحة التطبيق الخاصة على جهازك، وتدخل ضمن النسخ الاحتياطية لجهازك حسب إعداداتك، والتي تشفّرها آبل وتتحكم بها.</p>
+                <h3>الذكاء على الجهاز</h3>
+                <p>على أجهزة الآيفون المدعومة مع تفعيل Apple Intelligence، قد يطلب التطبيق من نموذج آبل الموجود على الجهاز اقتراح فئة لاسم تاجر غير معروف. يتم ذلك بالكامل على جهازك، ولا يرسل التطبيق اسم التاجر إلينا أو إلى أي خادم.</p>
+                <h3>الإشعارات</h3>
+                <p>تُنشأ كل الإشعارات على جهازك، ولا يمر أي محتوى منها عبر أي خادم.</p>
+                <h3>حذف بياناتك</h3>
+                <p>الإعدادات &lsaquo; حذف كل البيانات يحذف كل العمليات والقواعد فوراً، وحذف التطبيق يحذف كل ما حفظه. ولإيقاف وصول الرسائل الجديدة احذف الأتمتة أو اختصار Mizanya SMS من تطبيق الاختصارات.</p>
+                <h3>الأطفال</h3>
+                <p>التطبيق غير موجّه للأطفال دون 13 عاماً.</p>
+                <h3>التغييرات</h3>
+                <p>إذا تغيّرت هذه السياسة، تُنشر النسخة الجديدة في هذه الصفحة بتاريخ جديد.</p>
+                <h3>التواصل</h3>
+                <p><a href="mailto:faisalalromaihi7@gmail.com">faisalalromaihi7@gmail.com</a></p>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="section" id="contact">
+            <h2><span class="icon">&#128233;</span> Contact & Support</h2>
+            <p>For support, feedback, or questions:</p>
+            <p>Email: <a href="mailto:faisalalromaihi7@gmail.com">faisalalromaihi7@gmail.com</a></p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Mizanya is not affiliated with any bank, Benefit or Apple.</p>
+            <p>&copy; 2026 Faisal Alromaihi. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
