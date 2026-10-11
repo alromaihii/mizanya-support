@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mizanya</title>
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f6f8f7">
     <meta name="description" content="Mizanya turns the SMS your bank already sends you into a daily spending number, privately on your iPhone.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Naskh Arabic', sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
+            background: #f6f8f7;
+            color: #1f2a26;
             line-height: 1.7;
         }
         .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
@@ -22,68 +24,68 @@
             background: linear-gradient(145deg, #14b8a6, #0f766e);
             display: flex; align-items: center; justify-content: center;
             font-size: 64px; font-weight: 700; color: #fff;
-            box-shadow: 0 8px 32px rgba(45, 212, 191, 0.18);
+            box-shadow: 0 8px 28px rgba(15, 118, 110, 0.22);
         }
-        .header img { width: 128px; height: 128px; border-radius: 28px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(45, 212, 191, 0.18); }
-        .header h1 { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .header .subtitle { font-size: 1.15rem; color: #888; margin-bottom: 12px; }
+        .header img { width: 128px; height: 128px; border-radius: 28px; margin-bottom: 20px; box-shadow: 0 8px 28px rgba(15, 118, 110, 0.22); }
+        .header h1 { font-size: 2.5rem; font-weight: 700; color: #10201b; margin-bottom: 4px; }
+        .header .subtitle { font-size: 1.15rem; color: #5b6b65; margin-bottom: 12px; }
         .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .badge-ios { background: #1a2e1a; color: #22c55e; }
-        .badge-lang { background: #102a28; color: #2dd4bf; }
-        .badge-private { background: #2e2a1a; color: #eab308; }
+        .badge-ios { background: #e3f4e8; color: #15803d; }
+        .badge-lang { background: #dff3f0; color: #0f766e; }
+        .badge-private { background: #fdf3d8; color: #a16207; }
 
         /* Navigation */
         .nav { display: flex; gap: 6px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
-        .nav a { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; transition: all 0.2s; }
-        .nav a:hover { color: #fff; background: #1a1a1a; }
+        .nav a { color: #5b6b65; text-decoration: none; font-size: 0.85rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; transition: all 0.2s; }
+        .nav a:hover { color: #0f766e; background: #e6f2ef; }
 
         /* Sections */
         .section { margin-bottom: 44px; }
         .section h2 {
-            font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 16px; padding-bottom: 8px;
-            border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 8px;
+            font-size: 1.2rem; font-weight: 600; color: #10201b; margin-bottom: 16px; padding-bottom: 8px;
+            border-bottom: 1px solid #dde5e2; display: flex; align-items: center; gap: 8px;
         }
-        .section h3 { font-size: 1rem; color: #ddd; margin: 18px 0 6px; }
-        .section p, .section li { color: #999; margin-bottom: 10px; }
+        .section h3 { font-size: 1rem; color: #1f2a26; margin: 18px 0 6px; }
+        .section p, .section li { color: #4a5a54; margin-bottom: 10px; }
         .section ul, .section ol { padding-inline-start: 22px; }
-        strong { color: #ddd; }
+        strong { color: #10201b; }
 
         /* Feature grid */
         .features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
-        .feature-card { background: #111; border: 1px solid #1a1a1a; border-radius: 12px; padding: 16px; }
-        .feature-card h3 { font-size: 0.9rem; font-weight: 600; color: #ddd; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
-        .feature-card p { font-size: 0.85rem; color: #777; margin: 0; }
+        .feature-card { background: #ffffff; border: 1px solid #dde5e2; border-radius: 12px; padding: 16px; }
+        .feature-card h3 { font-size: 0.9rem; font-weight: 600; color: #10201b; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
+        .feature-card p { font-size: 0.85rem; color: #5b6b65; margin: 0; }
 
         /* Steps */
         .steps { counter-reset: step; list-style: none; padding: 0 !important; }
-        .steps li { counter-increment: step; position: relative; padding: 12px 16px 12px 56px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; margin-bottom: 10px; font-size: 0.9rem; }
+        .steps li { counter-increment: step; position: relative; padding: 12px 16px 12px 56px; background: #ffffff; border: 1px solid #dde5e2; border-radius: 10px; margin-bottom: 10px; font-size: 0.9rem; }
         .steps li::before { content: counter(step); position: absolute; left: 16px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: #0f766e; color: #fff; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
 
         /* FAQ */
-        .faq-item { margin-bottom: 18px; padding: 14px 16px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; }
-        .faq-item strong { color: #ddd; display: block; margin-bottom: 4px; font-size: 0.9rem; }
-        .faq-item p { font-size: 0.85rem; color: #777; margin: 0; }
+        .faq-item { margin-bottom: 18px; padding: 14px 16px; background: #ffffff; border: 1px solid #dde5e2; border-radius: 10px; }
+        .faq-item strong { color: #10201b; display: block; margin-bottom: 4px; font-size: 0.9rem; }
+        .faq-item p { font-size: 0.85rem; color: #5b6b65; margin: 0; }
 
-        a { color: #2dd4bf; text-decoration: none; }
+        a { color: #0f766e; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
         .tech-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .tech-tag { background: #1a1a1a; color: #888; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
+        .tech-tag { background: #e8eeec; color: #4a5a54; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
 
         /* Privacy */
         .privacy-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0 8px; }
         @media (max-width: 500px) { .privacy-grid { grid-template-columns: 1fr; } }
-        .privacy-card { text-align: center; padding: 14px; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; }
+        .privacy-card { text-align: center; padding: 14px; background: #ffffff; border: 1px solid #dde5e2; border-radius: 10px; }
         .privacy-card .check { font-size: 1.3rem; margin-bottom: 4px; }
-        .privacy-card p { font-size: 0.8rem; color: #777; margin: 0; }
-        .policy { background: #0e0e0e; border: 1px solid #1a1a1a; border-radius: 12px; padding: 18px 20px; margin-top: 14px; }
+        .privacy-card p { font-size: 0.8rem; color: #5b6b65; margin: 0; }
+        .policy { background: #ffffff; border: 1px solid #dde5e2; border-radius: 12px; padding: 18px 20px; margin-top: 14px; }
         .policy p, .policy li { font-size: 0.88rem; }
-        .policy .date { font-size: 0.8rem; color: #666; }
+        .policy .date { font-size: 0.8rem; color: #7a8a84; }
         .rtl { direction: rtl; text-align: right; font-family: -apple-system, 'SF Arabic', 'Geeza Pro', 'Noto Naskh Arabic', sans-serif; }
 
-        .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid #1a1a1a; color: #444; font-size: 0.8rem; }
+        .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid #dde5e2; color: #7a8a84; font-size: 0.8rem; }
         .footer p { margin-bottom: 6px; }
     </style>
 </head>
